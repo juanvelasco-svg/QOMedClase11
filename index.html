@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Carbohidratos | Química Orgánica</title>
+<style>
+    :root {
+        --QOMed-gold: #D4AF37;
+        --QOMed-dark: #1a1a2e;
+        --QOMed-blue: #16213e;
+        --QOMed-light: #0f3460;
+        --accent: #e94560;
+        --text: #2c3e50;
+        --white: #ffffff;
+        --sand: #f4e9c1;
+        --shadow: rgba(0, 0, 0, 0.15);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    /* ===== SANGRÍA DE VIÑETAS Y LISTAS ===== */
+    ul:not(.map-tree), ol {
+        padding-left: 2.4rem;
+        margin: 0.5rem 0 1rem;
+    }
+    ul:not(.map-tree) { list-style: none; }
+    ul:not(.map-tree) li, ol li { margin: 0.45rem 0; }
+
+    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); color: var(--text); line-height: 1.6; overflow-x: hidden; }
+    header { background: linear-gradient(135deg, var(--QOMed-dark) 0%, var(--QOMed-blue) 100%); color: var(--white); padding: 2rem; text-align: center; box-shadow: 0 6px 20px var(--shadow); position: relative; overflow: hidden; border-bottom: 5px solid var(--QOMed-gold); }
+    .logo-container { display: flex; align-items: center; justify-content: center; gap: 2rem; margin-bottom: 1rem; flex-wrap: wrap; }
+    .logo-QOMed { width: 120px; height: auto; background: var(--white); border-radius: 50%; padding: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
+    h1 { font-size: 2.5rem; margin-bottom: 0.5rem; text-shadow: 3px 3px 6px rgba(0,0,0,0.3); color: var(--QOMed-gold); }
+    .subtitle { font-size: 1.2rem; opacity: 0.95; font-weight: 300; }
+    .nav-container { background: var(--QOMed-blue); padding: 1rem; position: sticky; top: 0; z-index: 100; box-shadow: 0 4px 12px var(--shadow); }
+    .nav-buttons { display: flex; justify-content: center; flex-wrap: wrap; gap: 0.8rem; max-width: 1400px; margin: 0 auto; }
+    .nav-btn { background: var(--white); color: var(--QOMed-dark); border: none; padding: 0.8rem 1.5rem; border-radius: 25px; cursor: pointer; font-weight: 600; transition: all 0.3s ease; box-shadow: 0 3px 8px rgba(0,0,0,0.2); }
+    .nav-btn:hover, .nav-btn.active { background: var(--QOMed-gold); color: var(--QOMed-dark); transform: translateY(-3px); box-shadow: 0 5px 15px rgba(212,175,55,0.4); }
+    .container { max-width: 1400px; margin: 0 auto; padding: 2rem; }
+    .section { display: none; animation: fadeIn 0.5s ease; }
+    .section.active { display: block; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    .card { background: var(--white); border-radius: 16px; padding: 2rem; margin-bottom: 2rem; box-shadow: 0 8px 24px var(--shadow); border-left: 6px solid var(--QOMed-gold); transition: transform 0.3s ease; }
+    .card:hover { transform: translateY(-5px); }
+    h2 { color: var(--QOMed-blue); margin-bottom: 1.5rem; padding-bottom: 0.8rem; border-bottom: 3px solid var(--QOMed-gold); display: flex; align-items: center; gap: 0.8rem; font-size: 2rem; }
+    h3 { color: var(--QOMed-light); margin: 1.5rem 0 1rem; font-size: 1.5rem; }
+    .molecule-img { max-width: 100%; height: auto; border-radius: 12px; margin: 1rem 0; box-shadow: 0 4px 12px var(--shadow); }
+    .img-container { text-align: center; margin: 2rem 0; }
+    .calculator { background: linear-gradient(135deg, #fff9f5 0%, #fff0e8 100%); border: 3px solid var(--QOMed-gold); border-radius: 16px; padding: 2rem; margin: 2rem 0; }
+    .calc-title { color: var(--QOMed-blue); font-size: 1.6rem; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.8rem; }
+    .calc-input-group { margin: 1rem 0; }
+    .calc-input-group label { display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--QOMed-dark); }
+    .calc-input-group input, .calc-input-group select { width: 100%; padding: 0.8rem; border: 2px solid var(--sand); border-radius: 8px; font-size: 1rem; transition: border-color 0.3s; }
+    .calc-input-group input:focus, .calc-input-group select:focus { outline: none; border-color: var(--QOMed-gold); }
+    .calc-button { background: var(--QOMed-blue); color: var(--white); border: none; padding: 1rem 2rem; border-radius: 30px; font-size: 1.1rem; font-weight: 600; cursor: pointer; margin-top: 1rem; transition: all 0.3s ease; box-shadow: 0 4px 12px var(--shadow); }
+    .calc-button:hover { background: var(--QOMed-gold); color: var(--QOMed-dark); transform: translateY(-2px); }
+    .calc-result { background: var(--white); border-left: 5px solid var(--accent); padding: 1.5rem; margin-top: 1.5rem; border-radius: 8px; font-size: 1.1rem; display: none; }
+    .calc-result.show { display: block; animation: slideIn 0.5s ease; }
+    @keyframes slideIn { from { opacity: 0; transform: translateX(-20px); } to { opacity: 1; transform: translateX(0); } }
+    table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; background: var(--white); border-radius: 12px; overflow: hidden; box-shadow: 0 4px 12px var(--shadow); }
+    th { background: linear-gradient(135deg, var(--QOMed-blue) 0%, var(--QOMed-light) 100%); color: var(--white); padding: 1.2rem; text-align: left; font-weight: 600; }
+    td { padding: 1rem 1.2rem; border-bottom: 1px solid #eee; transition: background 0.3s; }
+    tr:hover td { background: #f8fff0; }
+    .info-box { background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); border-left: 5px solid #2196f3; padding: 1.5rem; margin: 1.5rem 0; border-radius: 0 12px 12px 0; }
+    .tip-box { background: linear-gradient(135deg, #fff3cd 0%, #ffe69c 100%); border-left: 5px solid #ffc107; padding: 1.5rem; margin: 1.5rem 0; border-radius: 0 12px 12px 0; }
+    .bio-box { background: linear-gradient(135deg, #d1ecf1 0%, #a8dadc 100%); border-left: 5px solid #17a2b8; padding: 1.5rem; margin: 1.5rem 0; border-radius: 0 12px 12px 0; }
+    .pharma-box { background: linear-gradient(135deg, #f8d7da 0%, #f1aeb5 100%); border-left: 5px solid #dc3545; padding: 1.5rem; margin: 1.5rem 0; border-radius: 0 12px 12px 0; }
+    .problem-box { background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%); border-left: 5px solid #28a745; padding: 1.5rem; margin: 1.5rem 0; border-radius: 0 12px 12px 0; }
+    details.solution { margin-top: 1rem; background: #f8f9fa; border: 2px solid var(--QOMed-light); border-radius: 10px; padding: 0.8rem 1.2rem; }
+    details.solution summary { cursor: pointer; font-weight: 700; color: var(--QOMed-light); }
+    details.solution[open] summary { margin-bottom: 0.8rem; border-bottom: 1px dashed var(--QOMed-light); padding-bottom: .4rem; }
+    .mnemonic-card { background: linear-gradient(135deg, #fff5f5 0%, #ffe0e0 100%); border: 3px solid var(--accent); border-radius: 12px; padding: 1.5rem; margin: 1rem 0; position: relative; overflow: hidden; }
+    .mnemonic-title { color: var(--accent); font-weight: 700; margin-bottom: 0.8rem; font-size: 1.2rem; }
+    .glossary-term { background: var(--white); border: 2px solid var(--QOMed-gold); border-radius: 8px; padding: 1rem; margin: 0.8rem 0; cursor: pointer; transition: all 0.3s; }
+    .glossary-term:hover { background: #fff9e6; transform: translateX(5px); }
+    .glossary-definition { display: none; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--QOMed-gold); }
+    .glossary-definition.show { display: block; animation: fadeIn 0.3s ease; }
+    .error-card { background: linear-gradient(135deg, #ffe6e6 0%, #ffb3b3 100%); border-left: 5px solid #dc3545; padding: 1.5rem; margin: 1rem 0; border-radius: 0 12px 12px 0; }
+    .error-title { color: #dc3545; font-weight: 700; margin-bottom: 0.5rem; }
+    .correction { background: #d4edda; border-left: 3px solid #28a745; padding: 1rem; margin-top: 1rem; border-radius: 0 8px 8px 0; }
+    .quiz-container { background: linear-gradient(135deg, var(--QOMed-blue) 0%, var(--QOMed-light) 100%); color: var(--white); border-radius: 16px; padding: 2rem; margin: 2rem 0; }
+    .quiz-question { font-size: 1.4rem; margin-bottom: 1.5rem; font-weight: 600; }
+    .quiz-options { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; }
+    .quiz-option { background: var(--white); color: var(--text); border: 3px solid transparent; padding: 1.2rem; border-radius: 10px; cursor: pointer; transition: all 0.3s ease; font-weight: 500; }
+    .quiz-option:hover:not(:disabled) { border-color: var(--QOMed-gold); transform: translateY(-3px); }
+    .quiz-option:disabled { cursor: not-allowed; opacity: 0.95; }
+    .quiz-option.correct { background: #4caf50; color: white; border-color: #2e7d32; }
+    .quiz-option.incorrect { background: #f44336; color: white; border-color: #c62828; }
+    .quiz-progress { max-width: 720px; margin: 0 auto 1rem; }
+    .quiz-progress-bar-bg { height: 10px; background: #e0e0e0; border-radius: 5px; overflow: hidden; }
+    .quiz-progress-bar { height: 100%; width: 0; background: linear-gradient(90deg, var(--QOMed-gold), var(--accent)); transition: width 0.4s; }
+    .quiz-stats { display: flex; gap: 0.8rem; flex-wrap: wrap; justify-content: center; margin: 1rem 0; }
+    .quiz-stat { padding: 0.6rem 1.2rem; border-radius: 20px; font-weight: 700; color: #fff; font-size: 0.95rem; background: var(--QOMed-light); }
+    .footer { background: var(--QOMed-dark); color: var(--white); text-align: center; padding: 2.5rem; margin-top: 3rem; border-top: 5px solid var(--QOMed-gold); }
+    .table-responsive { overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 1.5rem 0; border-radius: 12px; box-shadow: 0 4px 12px var(--shadow); }
+    .table-responsive table { min-width: 600px; width: 100%; margin: 0; }
+    .tabs { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+    .tab { background: var(--sand); border: none; padding: 0.8rem 1.5rem; border-radius: 8px; cursor: pointer; font-weight: 600; transition: all 0.3s; }
+    .tab.active { background: var(--QOMed-gold); color: var(--QOMed-dark); }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; animation: fadeIn 0.5s ease; }
+    .fc-stats { display: flex; gap: 0.8rem; flex-wrap: wrap; justify-content: center; margin: 1rem 0; }
+    .fc-stat { padding: 0.6rem 1.2rem; border-radius: 20px; font-weight: 700; color: #fff; font-size: 0.95rem; }
+    .fc-stat.good { background: #28a745; } .fc-stat.bad { background: #dc3545; } .fc-stat.pending { background: #6c757d; } .fc-stat.total { background: var(--QOMed-light); }
+    .fc-progress { height: 10px; background: #e0e0e0; border-radius: 5px; overflow: hidden; max-width: 720px; margin: 0 auto 1.5rem; }
+    .fc-progress-bar { height: 100%; width: 0; background: linear-gradient(90deg, var(--QOMed-gold), var(--accent)); transition: width 0.4s; }
+    .flashcard-scene { perspective: 1400px; max-width: 720px; height: 320px; margin: 0 auto 1.5rem; }
+    .flashcard { position: relative; width: 100%; height: 100%; transform-style: preserve-3d; transition: transform 0.6s; cursor: pointer; }
+    .flashcard.flipped { transform: rotateY(180deg); }
+    .fc-face { position: absolute; inset: 0; backface-visibility: hidden; -webkit-backface-visibility: hidden; border-radius: 16px; padding: 2rem; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; overflow: auto; box-shadow: 0 8px 24px var(--shadow); font-size: 1.15rem; }
+    .fc-front { background: linear-gradient(135deg, var(--QOMed-blue), var(--QOMed-light)); color: #fff; border: 3px solid var(--QOMed-gold); }
+    .fc-back { background: linear-gradient(135deg, #fff9e6, var(--sand)); color: var(--text); border: 3px solid var(--QOMed-gold); transform: rotateY(180deg); }
+    .fc-label { font-size: 0.85rem; letter-spacing: 2px; font-weight: 800; opacity: 0.8; margin-bottom: 1rem; }
+    .fc-hint { margin-top: 1rem; font-size: 0.85rem; opacity: 0.7; font-style: italic; }
+    .fc-controls { display: flex; gap: 1rem; justify-content: center; margin-bottom: 1rem; flex-wrap: wrap; }
+    .fc-btn { border: none; padding: 0.9rem 2rem; border-radius: 30px; font-size: 1.05rem; font-weight: 700; cursor: pointer; transition: all 0.3s; color: #fff; }
+    .fc-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+    .fc-btn.good { background: #28a745; } .fc-btn.bad { background: #dc3545; }
+    .fc-btn:not(:disabled):hover { transform: translateY(-3px); }
+    .fc-link { background: none; border: none; color: #6c757d; text-decoration: underline; cursor: pointer; font-size: 0.85rem; margin-top: 1rem; }
+
+    /* ===== MAPA CONCEPTUAL ===== */
+    .map-container { overflow-x: auto; padding: 1rem 0; }
+    .map-tree, .map-tree ul { list-style: none; margin: 0; padding-left: 0; }
+    .map-tree ul { display: none; padding-left: 1.6rem; margin: 0.6rem 0 0; border-left: 3px solid var(--QOMed-gold); }
+    .map-tree li.open > ul { display: block; animation: fadeIn 0.4s ease; }
+    .map-tree li { margin: 0.4rem 0; }
+    .map-node { display: inline-block; background: var(--QOMed-blue); color: #fff; padding: 0.6rem 1.1rem; border-radius: 10px; cursor: pointer; font-weight: 600; transition: all 0.3s; }
+    .map-node:hover { background: var(--QOMed-gold); color: var(--QOMed-dark); transform: translateX(4px); }
+    .map-node.root { background: var(--accent); font-size: 1.15rem; }
+    .map-node.branch { background: var(--QOMed-light); }
+    .map-leaf { display: inline-block; background: var(--sand); color: var(--text); padding: 0.45rem 0.9rem; border-radius: 8px; font-size: 0.95rem; border: 2px solid var(--QOMed-gold); }
+    li.has-children > .map-node::before { content: '▶ '; font-size: 0.8em; }
+    li.has-children.open > .map-node::before { content: '▼ '; font-size: 0.8em; }
+
+    @media (max-width: 768px) {
+        h1 { font-size: 1.8rem; } h2 { font-size: 1.5rem; } h3 { font-size: 1.2rem; }
+        .logo-container { flex-direction: column; gap: 1rem; } .logo-QOMed { width: 80px; }
+        .container { padding: 1rem; } .card { padding: 1.5rem; }
+        .nav-buttons { gap: 0.5rem; } .nav-btn { padding: 0.6rem 1rem; font-size: 0.85rem; }
+        .quiz-options { grid-template-columns: 1fr; }
+        .tabs { flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 0.5rem; }
+        .tab { flex-shrink: 0; padding: 0.6rem 1rem; font-size: 0.9rem; }
+        .flashcard-scene { height: 360px; } .fc-face { font-size: 1rem; padding: 1rem; }
+    }
+    @media (max-width: 480px) {
+        h1 { font-size: 1.4rem; } .subtitle { font-size: 0.9rem; } header { padding: 1rem; }
+        .card { padding: 1rem; } .nav-btn { padding: 0.5rem 0.7rem; font-size: 0.8rem; }
+    }
+</style>
+</head>
+<body>
+<header>
+    <div class="logo-container">
+        <img src="Logo-QOMed.png" alt="Logo QOMed" class="logo-QOMed">
+        <div>
+            <h1>Química Orgánica</h1>
+            <p class="subtitle">Especializada para alumnos de Medicina</p>
+            <p class="subtitle">Capítulo 11: Carbohidratos</p>
+        </div>
+    </div>
+</header>
+
+<nav class="nav-container">
+    <div class="nav-buttons">
+        <button class="nav-btn active" onclick="showSection('inicio', this)">🏠 Inicio</button>
+        <button class="nav-btn" onclick="showSection('conceptos', this)">📚 Conceptos</button>
+        <button class="nav-btn" onclick="showSection('mapa', this)">🗺️ Mapa Conceptual</button>
+        <button class="nav-btn" onclick="showSection('flashcards', this)">🃏 Flashcards</button>
+        <button class="nav-btn" onclick="showSection('calculadoras', this)">🧮 Herramientas</button>
+        <button class="nav-btn" onclick="showSection('aplicaciones', this)">🏥 Aplicaciones</button>
+        <button class="nav-btn" onclick="showSection('mnemotecnias', this)">🧠 Mnemotecnias</button>
+        <button class="nav-btn" onclick="showSection('glosario', this)">📖 Glosario</button>
+        <button class="nav-btn" onclick="showSection('errores', this)">⚠️ Errores Comunes</button>
+        <button class="nav-btn" onclick="showSection('bibliografia', this)">📚 Bibliografía</button>
+        <button class="nav-btn" onclick="showSection('quiz', this)">🎯 Quiz</button>
+    </div>
+</nav>
+
+<div class="container">
+
+<!-- ============ INICIO ============ -->
+<section id="inicio" class="section active">
+    <div class="card">
+        <h2>🎯 Objetivos de la Sesión</h2>
+        <div class="info-box">
+            <ul style="font-size: 1.1rem; line-height: 2;">
+                <li>✓ Identificar los principales tipos de carbohidratos y su clasificación.</li>
+                <li>✓ Reconocer las conformaciones cíclicas (Haworth y silla) de los monosacáridos.</li>
+                <li>✓ Identificar las principales reacciones de los monosacáridos (oxidación, reducción, formación de glicósidos).</li>
+                <li>✓ Diferenciar la estructura y propiedades de disacáridos y polisacáridos relevantes.</li>
+            </ul>
+        </div>
+        <h3>🩺 Importancia para la Medicina</h3>
+        <div class="bio-box">
+            <div><strong>¿Por qué un futuro médico debe dominar la química de los carbohidratos?</strong>
+                <ul style="font-size: 1rem; margin-top: 1rem;">
+                    <li>• La <strong>glucosa</strong> es la principal fuente de energía celular; su metabolismo es la base de la endocrinología (diabetes mellitus).</li>
+                    <li>• La <strong>intolerancia a la lactosa</strong> se explica por la deficiencia de la enzima β-galactosidasa (lactasa) que hidroliza este disacárido.</li>
+                    <li>• El <strong>almidón</strong> y el <strong>glucógeno</strong> son las formas de almacenamiento de energía en plantas y humanos, respectivamente.</li>
+                    <li>• La <strong>celulosa</strong> constituye la fibra dietética esencial para el tránsito intestinal, aunque los humanos carecemos de enzimas para hidrolizar sus enlaces β-1,4.</li>
+                    <li>• Las pruebas de <strong>Benedict o Fehling</strong> se usan históricamente para detectar glucosa en orina (glucosuria).</li>
+                </ul>
+            </div>
+        </div>
+        <div class="tip-box"><strong>📌 Ruta de estudio sugerida:</strong> Conceptos → Mapa conceptual → Flashcards → Herramientas → Aplicaciones → Quiz (10 preguntas aleatorias de una base de 30; cada ciclo recarga preguntas nuevas).</div>
+        <div class="pharma-box"><strong>Regla de oro del capítulo:</strong> Los <strong>monosacáridos</strong> y algunos disacáridos (maltosa, lactosa) son <strong>reductores</strong> y presentan <strong>mutarrotación</strong> porque tienen su carbono anomérico libre. La <strong>sacarosa</strong> y los <strong>glicósidos</strong> NO son reductores ni presentan mutarrotación porque sus carbonos anoméricos están "bloqueados" en un enlace acetálico.</div>
+    </div>
+</section>
+
+<!-- ============ CONCEPTOS ============ -->
+<section id="conceptos" class="section">
+    <div class="card">
+        <h2>📚 Conceptos Fundamentales</h2>
+        <div id="conceptos-tabs" class="tab-group">
+            <div class="tabs">
+                <button class="tab active" onclick="showTab('conceptos-tabs','sub-definicion', this)">🌱 Definición y Clasificación</button>
+                <button class="tab" onclick="showTab('conceptos-tabs','sub-monosacaridos', this)">🔬 Monosacáridos y Estereoquímica</button>
+                <button class="tab" onclick="showTab('conceptos-tabs','sub-conformaciones', this)">🔄 Conformaciones y Mutarrotación</button>
+                <button class="tab" onclick="showTab('conceptos-tabs','sub-reacciones', this)">⚗️ Reacciones Principales</button>
+                <button class="tab" onclick="showTab('conceptos-tabs','sub-disacaridos', this)">🔗 Disacáridos</button>
+                <button class="tab" onclick="showTab('conceptos-tabs','sub-polisacaridos', this)">🌾 Polisacáridos</button>
+            </div>
+
+            <div id="sub-definicion" class="tab-content active">
+                <h3>🌱 Definición y Clasificación</h3>
+                <div class="info-box">
+                    <strong>Químicamente:</strong> Aldehídos y cetonas polihidroxilados de fórmula general Cₙ(H₂O)ₘ (donde generalmente n=m).<br>
+                    <strong>Biológicamente:</strong> Compuestos sintetizados por las plantas a partir de CO₂ y H₂O mediante la fotosíntesis: <br>
+                    <em>n CO₂ + n H₂O + luz (clorofila) → Cₙ(H₂O)ₙ + n O₂</em>
+                </div>
+                <div class="table-responsive">
+                    <table>
+                        <tr><th>Criterio</th><th>Clasificación</th><th>Ejemplos</th></tr>
+                        <tr><td>Grupo funcional</td><td>Aldosas (aldehído) / Cetosas (cetona)</td><td>Glucosa (aldosa), Fructosa (cetosa)</td></tr>
+                        <tr><td>Átomos de carbono</td><td>Triosas (3), Tetrosas (4), Pentosas (5), Hexosas (6), Heptosas (7)</td><td>Gliceraldehído (triosa), Ribosa (pentosa)</td></tr>
+                        <tr><td>Número de unidades</td><td>Monosacáridos, Disacáridos, Oligosacáridos (3-10), Polisacáridos (>10)</td><td>Glucosa, Sacarosa, Almidón</td></tr>
+                        <tr><td>Carácter reductor</td><td>Reductores y No reductores</td><td>Maltosa (reductor), Sacarosa (no reductor)</td></tr>
+                    </table>
+                </div>
+            </div>
+
+            <div id="sub-monosacaridos" class="tab-content">
+                <h3>🔬 Monosacáridos y Estereoquímica</h3>
+                <div class="info-box">El monosacárido más pequeño es el <strong>gliceraldehído</strong>. El <strong>D(+)-gliceraldehído</strong> es la base de la serie "D" de los azúcares. La "D" se refiere a la configuración absoluta (actualmente denominada "R" en el carbono asimétrico más alejado del carbonilo), no al signo de rotación de la luz polarizada (+ o -).</div>
+                <div class="tip-box">
+                    <strong>Isómeros ópticos:</strong> La glucosa tiene 4 carbonos asimétricos (*), por lo que presenta 2⁴ = <strong>16 isómeros ópticos</strong>. 8 pertenecen a la serie D y 8 a la serie L (sus enantiómeros).
+                </div>
+                <div class="bio-box">
+                    <strong>Epímeros:</strong> Azúcares que solo se diferencian en la estereoquímica de <strong>un solo carbono</strong>.<br>
+                    • La <strong>Manosa</strong> es epímero de la glucosa en <strong>C2</strong>.<br>
+                    • La <strong>Galactosa</strong> es epímero de la glucosa en <strong>C4</strong>.
+                </div>
+            </div>
+
+            <div id="sub-conformaciones" class="tab-content">
+                <h3>🔄 Conformaciones y Mutarrotación</h3>
+                <div class="info-box">Los monosacáridos con 5 o 6 átomos de carbono forman <strong>hemiacetales cíclicos</strong> estables. Se representan con la <strong>proyección de Haworth</strong>, aunque la conformación de <strong>"silla"</strong> es la más realista. Los anillos de 6 miembros son <strong>piranósicos</strong> (como el pirano) y los de 5 miembros son <strong>furanósicos</strong> (como el furano).</div>
+                <div class="tip-box">
+                    <strong>Anómeros:</strong> Isómeros que solo difieren en la configuración del <strong>carbono anomérico</strong> (C1 en aldosas, C2 en cetosas), el único unido a dos oxígenos.<br>
+                    • <strong>Alfa (α):</strong> OH anomérico en posición <strong>axial</strong> (menos estable).<br>
+                    • <strong>Beta (β):</strong> OH anomérico en posición <strong>ecuatorial</strong> (más estable).
+                </div>
+                <div class="bio-box">
+                    <strong>Mutarrotación:</strong> Fenómeno por el cual la rotación óptica específica de un anómero puro cambia en solución acuosa hasta alcanzar un valor de equilibrio. Esto ocurre por la apertura y cierre del anillo a través de la forma lineal. En la glucosa, el equilibrio es ~64% β y ~36% α.
+                </div>
+            </div>
+
+            <div id="sub-reacciones" class="tab-content">
+                <h3>⚗️ Reacciones Principales de Monosacáridos</h3>
+                <div class="info-box">
+                    <strong>1. Formación de Glicósidos:</strong> Reacción del hemiacetal con un alcohol (ROH) en medio ácido para formar un <strong>acetal</strong> (glicósido). El grupo unido al C anomérico se llama <strong>aglicón</strong>. Los glicósidos NO tienen mutarrotación ni poder reductor (el aldehído está "bloqueado").
+                </div>
+                <div class="tip-box">
+                    <strong>2. Tautomería y Epimerización:</strong> En medio básico, las aldosas y cetosas forman un intermedio <strong>enodiol</strong>, lo que permite su interconversión. Por esto, las cetosas (como la fructosa) dan positivo en pruebas de oxidación débil.
+                </div>
+                <div class="problem-box">
+                    <strong>3. Oxidación:</strong><br>
+                    • <strong>Tollens, Fehling, Benedict:</strong> Positivo para TODOS los monosacáridos (aldosas y cetosas) por la tautomería en medio básico.<br>
+                    • <strong>Agua de bromo:</strong> Oxida solo el grupo aldehído a ácido carboxílico (identifica aldosas, no oxida cetosas porque es medio ácido).<br>
+                    • <strong>HNO₃:</strong> Oxida tanto el aldehído como el -CH₂OH terminal a ácidos carboxílicos (ácidos aldáricos).
+                </div>
+                <div class="bio-box">
+                    <strong>4. Formación de Osazonas:</strong> Reacción con fenilhidrazina. Aldosas, cetosas y sus epímeros en C2 producen la <strong>misma osazona</strong> (sólido cristalino), ya que se destruye la estereoquímica de C1 y C2.<br>
+                    <strong>5. Reducción:</strong> Con H₂/Ni o NaBH₄, el grupo carbonilo se reduce a alcohol, formando un <strong>alditol</strong> (ej. glucosa → glucitol/sorbitol).
+                </div>
+            </div>
+
+            <div id="sub-disacaridos" class="tab-content">
+                <h3>🔗 Disacáridos</h3>
+                <div class="info-box">Unión de dos monosacáridos mediante un <strong>enlace glicosídico</strong> (acetálico) con pérdida de una molécula de agua.</div>
+                <div class="table-responsive">
+                    <table>
+                        <tr><th>Disacárido</th><th>Composición</th><th>Enlace</th><th>Poder Reductor</th></tr>
+                        <tr><td><strong>Maltosa</strong></td><td>Glucosa + Glucosa</td><td>α 1-O-4'</td><td>Sí (un C anomérico libre)</td></tr>
+                        <tr><td><strong>Celobiosa</strong></td><td>Glucosa + Glucosa</td><td>β 1-O-4'</td><td>Sí (un C anomérico libre)</td></tr>
+                        <tr><td><strong>Lactosa</strong></td><td>Galactosa + Glucosa</td><td>β 1-O-4'</td><td>Sí (un C anomérico libre)</td></tr>
+                        <tr><td><strong>Sacarosa</strong></td><td>Glucosa + Fructosa</td><td>α 1-O-β 2'</td><td><strong>NO</strong> (ambos C anoméricos unidos)</td></tr>
+                    </table>
+                </div>
+                <div class="tip-box"><strong>Inversión de la sacarosa:</strong> La hidrólisis de la sacarosa (por ácido o invertasa) produce glucosa y fructosa. Como la fructosa es muy levógira (-92.4°), la mezcla resultante invierte el signo de la rotación óptica de la sacarosa original (+66.4° a -39.7°), llamándose "azúcar invertido".</div>
+            </div>
+
+            <div id="sub-polisacaridos" class="tab-content">
+                <h3>🌾 Polisacáridos</h3>
+                <div class="info-box">Polímeros naturales de muchas unidades de monosacáridos. Su poder reductor es prácticamente nulo (solo la unidad terminal es reductora).</div>
+                <div class="bio-box">
+                    <strong>Almidón:</strong> Reserva energética vegetal. Formado por:<br>
+                    • <strong>Amilosa:</strong> Cadena lineal de glucosas con enlaces <strong>α 1-O-4</strong>. Soluble en agua. Forma un complejo azul con el yodo (I₃⁻).<br>
+                    • <strong>Amilopectina:</strong> Cadena ramificada con enlaces α 1-O-4 y ramificaciones <strong>α 1-O-6</strong> cada 25-30 unidades.
+                </div>
+                <div class="problem-box">
+                    <strong>Celulosa:</strong> Principal componente estructural de la pared celular vegetal. Formada por unidades de celobiosa (glucosas unidas por enlaces <strong>β 1-O-4</strong>). Los humanos no poseemos enzimas (celulasas) para hidrolizar el enlace β, por lo que actúa como fibra dietética.
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============ MAPA ============ -->
+<section id="mapa" class="section">
+    <div class="card">
+        <h2>🗺️ Mapa Conceptual Interactivo</h2>
+        <p style="margin-bottom:1rem;">Haz <strong>clic en cada nodo</strong> para desplegar u ocultar sus ramas.</p>
+        <div class="map-container">
+            <ul class="map-tree">
+                <li class="has-children">
+                    <div class="map-node root" onclick="toggleMap(this)">🧪 Carbohidratos (Capítulo 11)</div>
+                    <ul>
+                        <li class="has-children"><div class="map-node branch" onclick="toggleMap(this)">🌱 Clasificación</div>
+                            <ul>
+                                <li><span class="map-leaf">Por grupo funcional: Aldosas y Cetosas</span></li>
+                                <li><span class="map-leaf">Por carbono: Triosas, Tetrosas, Pentosas, Hexosas</span></li>
+                                <li><span class="map-leaf">Por unidades: Mono, Di, Oligo, Polisacáridos</span></li>
+                            </ul>
+                        </li>
+                        <li class="has-children"><div class="map-node branch" onclick="toggleMap(this)">🔬 Monosacáridos</div>
+                            <ul>
+                                <li><span class="map-leaf">Serie D basada en D(+)-gliceraldehído</span></li>
+                                <li><span class="map-leaf">Glucosa: 4 carbonos asimétricos, 16 isómeros ópticos</span></li>
+                                <li><span class="map-leaf">Epímeros: difieren en un solo C (Manosa en C2, Galactosa en C4)</span></li>
+                            </ul>
+                        </li>
+                        <li class="has-children"><div class="map-node branch" onclick="toggleMap(this)">🔄 Conformaciones</div>
+                            <ul>
+                                <li><span class="map-leaf">Hemiacetales cíclicos: Furanósicos (5) y Piranósicos (6)</span></li>
+                                <li><span class="map-leaf">Anómeros: α (axial, menos estable) y β (ecuatorial, más estable)</span></li>
+                                <li><span class="map-leaf">Mutarrotación: equilibrio en solución a través de la forma lineal</span></li>
+                            </ul>
+                        </li>
+                        <li class="has-children"><div class="map-node branch" onclick="toggleMap(this)">⚗️ Reacciones</div>
+                            <ul>
+                                <li><span class="map-leaf">Glicósidos: formación de acetales (bloquea poder reductor)</span></li>
+                                <li><span class="map-leaf">Oxidación: Tollens/Fehling (+ para todos), Bromo (solo aldosas)</span></li>
+                                <li><span class="map-leaf">Osazonas: fenilhidrazina (aldosas y cetosas dan la misma)</span></li>
+                                <li><span class="map-leaf">Reducción: formación de alditoles (ej. sorbitol)</span></li>
+                            </ul>
+                        </li>
+                        <li class="has-children"><div class="map-node branch" onclick="toggleMap(this)">🔗 Disacáridos</div>
+                            <ul>
+                                <li><span class="map-leaf">Maltosa: Glc(α1→4)Glc (Reductor)</span></li>
+                                <li><span class="map-leaf">Celobiosa: Glc(β1→4)Glc (Reductor)</span></li>
+                                <li><span class="map-leaf">Lactosa: Gal(β1→4)Glc (Reductor)</span></li>
+                                <li><span class="map-leaf">Sacarosa: Glc(α1→β2)Fru (NO reductor)</span></li>
+                            </ul>
+                        </li>
+                        <li class="has-children"><div class="map-node branch" onclick="toggleMap(this)">🌾 Polisacáridos</div>
+                            <ul>
+                                <li><span class="map-leaf">Almidón: Amilosa (lineal α1-4) + Amilopectina (ramificada α1-6)</span></li>
+                                <li><span class="map-leaf">Celulosa: Lineal β1-4 (estructural, no digerible por humanos)</span></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<!-- ============ FLASHCARDS ============ -->
+<section id="flashcards" class="section">
+    <div class="card">
+        <h2>🃏 Flashcards de Estudio</h2>
+        <p>Haz <strong>clic en la tarjeta</strong> para voltearla y ver la respuesta. Luego califícate con honestidad.</p>
+        <div class="fc-stats">
+            <span class="fc-stat good">✅ Buenas: <span id="fc-good">0</span></span>
+            <span class="fc-stat bad">❌ Malas: <span id="fc-bad">0</span></span>
+            <span class="fc-stat pending">⏳ Pendientes: <span id="fc-left">0</span></span>
+            <span class="fc-stat total">📈 Historial: <span id="fc-hist">0 ✓ / 0 ✗</span></span>
+        </div>
+        <div class="fc-progress"><div class="fc-progress-bar" id="fc-bar"></div></div>
+        <div class="flashcard-scene" id="fc-scene">
+            <div class="flashcard" id="fc-card" onclick="flipCard()">
+                <div class="fc-face fc-front"><div class="fc-label">PREGUNTA</div><div id="fc-question"></div><span class="fc-hint">Clic para voltear ✨</span></div>
+                <div class="fc-face fc-back"><div class="fc-label">RESPUESTA</div><div id="fc-answer"></div></div>
+            </div>
+        </div>
+        <div class="fc-controls" id="fc-controls">
+            <button class="fc-btn good" id="btn-fc-good" onclick="gradeCard(true)" disabled>✅ La sabía</button>
+            <button class="fc-btn bad" id="btn-fc-bad" onclick="gradeCard(false)" disabled>❌ No la sabía</button>
+        </div>
+        <div id="fc-summary" class="calc-result" style="max-width:720px;margin:1rem auto;"></div>
+        <div style="text-align:center;">
+            <button class="calc-button" onclick="resetFlashcards()">🔄 Reiniciar Flashcards</button><br>
+            <button class="fc-link" onclick="borrarHistorial()">Borrar historial acumulado</button>
+        </div>
+    </div>
+</section>
+
+<!-- ============ HERRAMIENTAS ============ -->
+<section id="calculadoras" class="section">
+    <div class="card">
+        <h2>🧮 Herramientas Interactivas</h2>
+        <div id="herramientas-tabs" class="tab-group">
+            <div class="tabs">
+                <button class="tab active" onclick="showTab('herramientas-tabs','calc-clasificador', this)">🧪 Clasificador de Carbohidratos</button>
+                <button class="tab" onclick="showTab('herramientas-tabs','calc-reductor', this)">🎯 Evaluador de Poder Reductor</button>
+                <button class="tab" onclick="showTab('herramientas-tabs','calc-isomeros', this)">🔢 Calculadora de Isómeros Ópticos</button>
+            </div>
+
+            <div id="calc-clasificador" class="tab-content active">
+                <div class="calculator">
+                    <div class="calc-title">🧪 Clasificador de Carbohidratos</div>
+                    <div class="calc-input-group"><label>Selecciona un carbohidrato:</label>
+                        <select id="clasificador-select">
+                            <option value="0">Glucosa</option>
+                            <option value="1">Fructosa</option>
+                            <option value="2">Ribosa</option>
+                            <option value="3">Gliceraldehído</option>
+                            <option value="4">Sacarosa</option>
+                            <option value="5">Celulosa</option>
+                        </select>
+                    </div>
+                    <button class="calc-button" onclick="clasificarCarbohidrato()">Clasificar</button>
+                    <div id="clasificador-resultado" class="calc-result"></div>
+                </div>
+            </div>
+
+            <div id="calc-reductor" class="tab-content">
+                <div class="calculator">
+                    <div class="calc-title">🎯 Evaluador de Poder Reductor y Mutarrotación</div>
+                    <div class="calc-input-group"><label>Selecciona un disacárido o derivado:</label>
+                        <select id="reductor-select">
+                            <option value="0">Maltosa</option>
+                            <option value="1">Lactosa</option>
+                            <option value="2">Sacarosa</option>
+                            <option value="3">Celobiosa</option>
+                            <option value="4">Metil-β-D-glucopiranosido (Glicósido)</option>
+                        </select>
+                    </div>
+                    <button class="calc-button" onclick="evaluarReductor()">Evaluar</button>
+                    <div id="reductor-resultado" class="calc-result"></div>
+                </div>
+            </div>
+
+            <div id="calc-isomeros" class="tab-content">
+                <div class="calculator">
+                    <div class="calc-title">🔢 Calculadora de Isómeros Ópticos</div>
+                    <div class="calc-input-group"><label>Número de carbonos asimétricos (n):</label>
+                        <input type="number" id="isomeros-input" min="1" max="10" value="4">
+                    </div>
+                    <button class="calc-button" onclick="calcularIsomeros()">Calcular</button>
+                    <div id="isomeros-resultado" class="calc-result"></div>
+                    <div class="tip-box" style="margin-top:2rem;"><strong>Fórmula de Van't Hoff:</strong> Número máximo de isómeros ópticos = 2ⁿ, donde n es el número de carbonos quirales (asimétricos). La mitad pertenecen a la serie D y la otra mitad a la serie L.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============ APLICACIONES ============ -->
+<section id="aplicaciones" class="section">
+    <div class="card">
+        <h2>🏥 Aplicaciones Profesionales</h2>
+        <div id="aplicaciones-tabs" class="tab-group">
+            <div class="tabs">
+                <button class="tab active" onclick="showTab('aplicaciones-tabs','aplic-medicina', this)">🩺 Medicina Clínica</button>
+                <button class="tab" onclick="showTab('aplicaciones-tabs','aplic-bioq', this)">🧬 Bioquímica y Fisiología</button>
+                <button class="tab" onclick="showTab('aplicaciones-tabs','aplic-lab', this)">🔬 Laboratorio y Diagnóstico</button>
+            </div>
+
+            <div id="aplic-medicina" class="tab-content active">
+                <div class="bio-box"><strong>Enfoque clínico:</strong> la digestión y metabolismo de carbohidratos son fundamentales en la práctica médica diaria.</div>
+                <div class="problem-box"><strong>📋 Problema 1 — Intolerancia a la lactosa:</strong> Un paciente presenta distensión abdominal y diarrea tras consumir lácteos. ¿Cuál es la base bioquímica?</div>
+                <details class="solution"><summary>🔍 Ver solución</summary>
+                    <p>Deficiencia de la enzima <strong>β-galactosidasa (lactasa)</strong> en el borde en cepillo del intestino delgado. La lactosa (Gal-β1,4-Glc) no se hidroliza, llega al colon donde la flora bacteriana la fermenta, produciendo gases y ácidos que causan los síntomas.</p>
+                </details>
+                <div class="problem-box"><strong>📋 Problema 2 — Fibra dietética:</strong> ¿Por qué se recomienda el consumo de celulosa si los humanos no podemos digerirla?</div>
+                <details class="solution"><summary>🔍 Ver solución</summary>
+                    <p>La celulosa tiene enlaces <strong>β 1-O-4</strong>, y los humanos carecemos de celulasas. Sin embargo, actúa como <strong>fibra dietética</strong> insoluble, aumentando el bolo fecal, reteniendo agua y estimulando el peristaltismo intestinal, previniendo el estreñimiento.</p>
+                </details>
+            </div>
+
+            <div id="aplic-bioq" class="tab-content">
+                <div class="bio-box"><strong>Enfoque molecular:</strong> el almacenamiento y la estructura de los carbohidratos determinan su función biológica.</div>
+                <div class="problem-box"><strong>📋 Problema 1 — Almacenamiento de energía:</strong> ¿Por qué el glucógeno (análogo al almidón en animales) es altamente ramificado?</div>
+                <details class="solution"><summary>🔍 Ver solución</summary>
+                    <p>La ramificación (enlaces <strong>α 1-O-6</strong> cada 8-12 residuos) crea múltiples extremos no reductores. Esto permite que las enzimas (glucógeno fosforilasa) liberen moléculas de glucosa de forma <strong>masiva y rápida</strong> cuando el cuerpo necesita energía urgente (ej. ejercicio, ayuno).</p>
+                </details>
+            </div>
+
+            <div id="aplic-lab" class="tab-content">
+                <div class="pharma-box"><strong>Enfoque diagnóstico:</strong> las propiedades químicas de los carbohidratos permiten su identificación en muestras biológicas.</div>
+                <div class="problem-box"><strong>📋 Problema 1 — Prueba de Benedict en orina:</strong> ¿Qué detecta esta prueba y por qué funciona con glucosa pero no con sacarosa?</div>
+                <details class="solution"><summary>🔍 Ver solución</summary>
+                    <p>Detecta <strong>azúcares reductores</strong> (como la glucosa) en medio básico, reduciendo el Cu²⁺ a Cu₂O (precipitado rojo ladrillo). Funciona con glucosa porque tiene su carbono anomérico libre (hemiacetal). No funciona con sacarosa porque su enlace une ambos carbonos anoméricos (acetal), "bloqueando" el poder reductor.</p>
+                </details>
+                <div class="problem-box"><strong>📋 Problema 2 — Prueba del Yodo:</strong> ¿Cómo se diferencia el almidón de otros polisacáridos en el laboratorio?</div>
+                <details class="solution"><summary>🔍 Ver solución</summary>
+                    <p>La <strong>amilosa</strong> forma una estructura helicoidal que atrapa moléculas de yodo (I₃⁻), formando un complejo de transferencia de carga de color <strong>azul intenso</strong>. Es una prueba cualitativa específica para almidón.</p>
+                </details>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ============ MNEMOTECNIAS ============ -->
+<section id="mnemotecnias" class="section">
+    <div class="card">
+        <h2>🧠 Mnemotecnias y Reglas de Oro</h2>
+        <div class="mnemonic-card"><div class="mnemonic-title">🎯 "Manosa en el 2, Galactosa en el 4"</div><p>Para recordar los epímeros de la glucosa: la <strong>Manosa</strong> difiere en el carbono <strong>C2</strong>, y la <strong>Galactosa</strong> difiere en el carbono <strong>C4</strong>.</p></div>
+        <div class="mnemonic-card"><div class="mnemonic-title">🔄 "Beta es Mejor (Ecuatorial)"</div><p>En la conformación de silla de la glucosa, el anómero <strong>β</strong> tiene todos sus grupos OH en posición <strong>ecuatorial</strong>, lo que lo hace más estable (64% en equilibrio) que el α (axial, 36%).</p></div>
+        <div class="mnemonic-card"><div class="mnemonic-title">🔗 "Sacarosa = Sin Reducción"</div><p>La <strong>S</strong>acarosa tiene sus <strong>S</strong>dos carbonos anoméricos unidos (Glc α1 → β2 Fru). Al estar "bloqueados", <strong>NO</strong> es reductora ni presenta mutarrotación.</p></div>
+        <div class="mnemonic-card"><div class="mnemonic-title">🌾 "Almidón = Alfa (Animales lo comen), Celulosa = Beta (Barreras)"</div><p>El almidón tiene enlaces <strong>α</strong> (digeribles por nosotros). La celulosa tiene enlaces <strong>β</strong> (forman barreras estructurales, fibra no digerible).</p></div>
+        <div class="mnemonic-card"><div class="mnemonic-title">🔬 "Bromo solo para Aldosas"</div><p>El agua de bromo es ácida, por lo que <strong>no</strong> provoca la tautomería de las cetosas. Solo oxida el aldehído de las <strong>aldosas</strong> a ácido, sirviendo para distinguirlas.</p></div>
+        <div class="mnemonic-card"><div class="mnemonic-title">🧪 "Fehling/Tollens = Todos Positivos"</div><p>Estos reactivos son <strong>básicos</strong>. En medio básico, las cetosas se convierten en aldosas vía intermedio <strong>enodiol</strong>, por lo que TODOS los monosacáridos dan positivo.</p></div>
+    </div>
+</section>
+
+<!-- ============ GLOSARIO ============ -->
+<section id="glosario" class="section">
+    <div class="card">
+        <h2>📖 Glosario Interactivo</h2>
+        <p style="margin-bottom:1.5rem;">Haz clic en cada término para ver su definición:</p>
+        <div class="glossary-term" onclick="toggleDefinition(this)"><strong>Aldosa / Cetosa</strong><div class="glossary-definition">Clasificación según el grupo funcional: aldehído (aldosa) o cetona (cetosa) polihidroxilado.</div></div>
+        <div class="glossary-term" onclick="toggleDefinition(this)"><strong>Epímero</strong><div class="glossary-definition">Diastereoisómeros que difieren en la configuración de un solo carbono asimétrico (ej. glucosa y manosa en C2).</div></div>
+        <div class="glossary-term" onclick="toggleDefinition(this)"><strong>Anómero</strong><div class="glossary-definition">Isómeros que difieren solo en la configuración del carbono anomérico (C1 en aldosas, C2 en cetosas) al formarse el hemiacetal cíclico (α o β).</div></div>
+        <div class="glossary-term" onclick="toggleDefinition(this)"><strong>Mutarrotación</strong><div class="glossary-definition">Cambio en la rotación óptica de una solución de un azúcar puro hasta alcanzar un valor de equilibrio, debido a la interconversión de anómeros a través de la forma lineal.</div></div>
+        <div class="glossary-term" onclick="toggleDefinition(this)"><strong>Glicósido</strong><div class="glossary-definition">Acetal formado por la reacción de un monosacárido cíclico con un alcohol. No presenta mutarrotación ni poder reductor.</div></div>
+        <div class="glossary-term" onclick="toggleDefinition(this)"><strong>Carbono Anomérico</strong><div class="glossary-definition">El carbono que era el carbonilo en la forma lineal. En la forma cíclica, es el único unido a dos átomos de oxígeno.</div></div>
+        <div class="glossary-term" onclick="toggleDefinition(this)"><strong>Enlace Glicosídico</strong><div class="glossary-definition">Enlace acetálico que une dos monosacáridos en un oligo o polisacárido, con pérdida de una molécula de agua.</div></div>
+        <div class="glossary-term" onclick="toggleDefinition(this)"><strong>Azul de Yodo</strong><div class="glossary-definition">Prueba cualitativa positiva para el almidón, donde la amilosa helicoidal atrapa iones triyoduro (I₃⁻) formando un complejo azul.</div></div>
+    </div>
+</section>
+
+<!-- ============ ERRORES ============ -->
+<section id="errores" class="section">
+    <div class="card">
+        <h2>⚠️ Errores Comunes de Estudiantes</h2>
+        <div class="error-card"><div class="error-title">❌ Error 1: Confundir la serie D/L con el signo (+) o (-)</div><p><strong>Error:</strong> pensar que D significa siempre dextrógiro (+).</p><div class="correction">✓ Corrección: La "D" se refiere a la configuración absoluta (relación con el D-gliceraldehído). Un azúcar D puede ser levógiro (-), como la D-fructosa.</div></div>
+        <div class="error-card"><div class="error-title">❌ Error 2: Creer que la sacarosa es reductora</div><p><strong>Error:</strong> asumir que todos los disacáridos dan positivo en Benedict.</p><div class="correction">✓ Corrección: La sacarosa une el C1 de la glucosa con el C2 de la fructosa. Ambos carbonos anoméricos están "bloqueados", por lo que NO es reductora.</div></div>
+        <div class="error-card"><div class="error-title">❌ Error 3: Confundir los enlaces del almidón y la celulosa</div><p><strong>Error:</strong> pensar que la celulosa tiene enlaces alfa.</p><div class="correction">✓ Corrección: El almidón tiene enlaces <strong>α 1-O-4</strong> (digerible). La celulosa tiene enlaces <strong>β 1-O-4</strong> (no digerible por humanos).</div></div>
+        <div class="error-card"><div class="error-title">❌ Error 4: Olvidar la tautomería en cetosas</div><p><strong>Error:</strong> afirmar que la fructosa no reacciona con Fehling o Tollens por ser cetona.</p><div class="correction">✓ Corrección: En medio básico (como el de Fehling/Tollens), las cetosas forman un intermedio <strong>enodiol</strong> que se isomeriza a aldosa, dando un resultado positivo.</div></div>
+        <div class="error-card"><div class="error-title">❌ Error 5: Pensar que los glicósidos tienen mutarrotación</div><p><strong>Error:</strong> creer que un glicósido en solución cambia su rotación óptica.</p><div class="correction">✓ Corrección: Al ser un acetal, el enlace es estable en medio neutro/básico. No se abre el anillo, por lo que no hay forma lineal ni mutarrotación.</div></div>
+        <div class="tip-box" style="margin-top:2rem;"><strong>💡 Consejo de estudio:</strong> Dibuja siempre la proyección de Haworth. Identifica el carbono anomérico (el que tiene dos oxígenos unidos). Si tiene un -OH libre, es hemiacetal (reductor, con mutarrotación). Si tiene un -OR, es acetal/glicósido (no reductor, sin mutarrotación).</div>
+    </div>
+</section>
+
+<!-- ============ BIBLIOGRAFÍA ============ -->
+<section id="bibliografia" class="section">
+    <div class="card">
+        <h2>📚 Fuentes Bibliográficas Universitarias</h2>
+        <h3>Libros de Texto Principales</h3>
+        <div class="info-box"><strong>1. Wade, L.G. — "Química Orgánica"</strong><br>• <strong>Capítulo 11:</strong> Carbohidratos (Estructura, conformaciones, reacciones y polisacáridos).<br>• 9na edición, Pearson, 2017.</div>
+        <div class="info-box"><strong>2. McMurry, J. — "Química Orgánica"</strong><br>• <strong>Capítulo 25:</strong> Biomoléculas: Carbohidratos.<br>• 9na edición, Cengage Learning, 2016.</div>
+        <div class="info-box"><strong>3. Solomons, T.W.G. & Fryhle, C.B. — "Química Orgánica"</strong><br>• <strong>Capítulo 22:</strong> Carbohidratos: estructura y reacciones.<br>• 10ma edición, Wiley, 2011.</div>
+        <h3>Recursos Especializados en Bioquímica Médica</h3>
+        <div class="bio-box"><div><strong>4. Nelson, D.L. & Cox, M.M. — "Lehninger Principles of Biochemistry"</strong><br>• Caps. 7 y 11: Estructura de carbohidratos, glicobiología y rutas metabólicas centrales.<br>• 8va ed., W.H. Freeman, 2021.</div></div>
+        <div class="pharma-box"><div><strong>5. Murray, R.K. et al. — "Harper Bioquímica Ilustrada"</strong><br>• Sección sobre metabolismo de carbohidratos y relevancia clínica (intolerancia a la lactosa, diabetes).<br>• 31va ed., Manual Moderno, 2018.</div></div>
+    </div>
+</section>
+
+<!-- ============ QUIZ ============ -->
+<section id="quiz" class="section">
+    <div class="card">
+        <h2>🎯 Quiz de Autoevaluación</h2>
+        <p>Cada ciclo muestra <strong>10 preguntas al azar</strong> de una base de <strong>30</strong>. Cada vez que entras a esta pestaña o terminas un ciclo se sortean preguntas nuevas.</p>
+        <div class="quiz-stats">
+            <span class="quiz-stat" id="q-progress-text">Pregunta 1 de 10 • Aciertos: 0</span>
+            <span class="quiz-stat" id="q-history" style="background:#6c757d;"></span>
+        </div>
+        <div class="quiz-progress"><div class="quiz-progress-bar-bg"><div class="quiz-progress-bar" id="q-bar"></div></div></div>
+        <div id="quiz-container"></div>
+        <div id="quiz-result" class="calc-result" style="max-width:720px;margin:1rem auto;"></div>
+        <div style="text-align:center; margin-top:2rem;">
+            <button class="calc-button" onclick="startNewCycle()">🔄 Reiniciar Quiz (nuevo ciclo aleatorio)</button>
+        </div>
+    </div>
+</section>
+
+</div>
+
+<footer class="footer">
+    <p style="font-size:1.2rem; margin-bottom:1rem;">🎓 Universidad Peruana Cayetano Heredia</p>
+    <p>Facultad de Medicina • Departamento de Ciencias Básicas</p>
+    <p style="margin-top:1rem; font-style:italic;">"La química orgánica es el lenguaje de la vida"</p>
+    <p style="margin-top:2rem; font-size:0.9rem;">© 2026 - Material educativo para estudiantes de medicina</p>
+</footer>
+
+<script>
+    // ================= NAVEGACIÓN =================
+    function showSection(sectionId, btn) {
+        document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+        document.getElementById(sectionId).classList.add('active');
+        document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+        if (btn) btn.classList.add('active');
+        if (sectionId === 'quiz') startNewCycle();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    function showTab(groupId, tabId, btn) {
+        const g = document.getElementById(groupId);
+        g.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+        g.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        document.getElementById(tabId).classList.add('active');
+        if (btn) btn.classList.add('active');
+    }
+    function toggleMap(node){ node.parentElement.classList.toggle('open'); }
+    function toggleDefinition(el){
+        const d = el.querySelector('.glossary-definition');
+        d.classList.toggle('show');
+        el.style.background = d.classList.contains('show') ? '#fff9e6' : 'var(--white)';
+    }
+    
+    // ================= FLASHCARDS =================
+    const flashcards = [
+        { q:'¿Cuál es la fórmula general de los carbohidratos?', a:'Cₙ(H₂O)ₘ, donde generalmente n = m.' },
+        { q:'¿En qué se diferencian una aldosa y una cetosa?', a:'La aldosa tiene un grupo aldehído (C1), la cetosa tiene un grupo cetona (generalmente en C2).' },
+        { q:'¿Cuál es el monosacárido más pequeño?', a:'El gliceraldehído (una triosa).' },
+        { q:'¿En qué se basa la serie "D" de los azúcares?', a:'En la configuración del D(+)-gliceraldehído. La "D" indica configuración absoluta, no el signo de rotación óptica.' },
+        { q:'¿Cuántos isómeros ópticos tiene la glucosa?', a:'16 isómeros ópticos (2⁴, ya que tiene 4 carbonos asimétricos).' },
+        { q:'¿Qué es un epímero?', a:'Un diastereoisómero que difiere en la configuración de un solo carbono asimétrico.' },
+        { q:'La manosa es epímero de la glucosa en el carbono:', a:'Carbono 2 (C2).' },
+        { q:'La galactosa es epímero de la glucosa en el carbono:', a:'Carbono 4 (C4).' },
+        { q:'¿Qué tipo de enlace cíclico forman los monosacáridos?', a:'Un hemiacetal (o hemicetal en cetosas) cíclico.' },
+        { q:'¿Cuántos miembros tienen los anillos furanósicos y piranósicos?', a:'Furanósicos: 5 miembros. Piranósicos: 6 miembros.' },
+        { q:'¿Qué es el carbono anomérico?', a:'El carbono que era el carbonilo en la forma lineal. En la forma cíclica, es el único unido a dos átomos de oxígeno.' },
+        { q:'¿Cuál anómero es más estable en la glucosa y por qué?', a:'El anómero β, porque tiene el grupo OH en posición ecuatorial, minimizando la repulsión estérica.' },
+        { q:'¿Qué es la mutarrotación?', a:'El cambio en la rotación óptica de una solución hasta alcanzar un equilibrio, debido a la interconversión de anómeros a través de la forma lineal.' },
+        { q:'¿Cuál es el porcentaje aproximado de anómeros β y α en el equilibrio de la glucosa?', a:'~64% β y ~36% α.' },
+        { q:'¿Qué se forma cuando un hemiacetal reacciona con un alcohol en medio ácido?', a:'Un acetal, conocido en carbohidratos como glicósido.' },
+        { q:'¿Los glicósidos presentan mutarrotación o poder reductor?', a:'No, porque el carbono anomérico está "bloqueado" en el enlace acetálico.' },
+        { q:'¿Por qué las cetosas dan positivo en la prueba de Tollens o Fehling?', a:'Porque en medio básico forman un intermedio enodiol que se isomeriza a aldosa (tautomería).' },
+        { q:'¿Qué reactivo oxida selectivamente a las aldosas sin afectar a las cetosas?', a:'El agua de bromo (porque la reacción es en medio ácido, evitando la tautomería).' },
+        { q:'¿Qué producto se obtiene al reducir una aldosa con NaBH₄ o H₂/Ni?', a:'Un alditol (polialcohol), ej. glucosa → glucitol (sorbitol).' },
+        { q:'¿Qué reactivo se usa para formar osazonas?', a:'Fenilhidrazina (en exceso).' },
+        { q:'¿Qué disacáridos dan la misma osazona?', a:'Aldosas, cetosas y sus epímeros en C2 (ej. glucosa, fructosa y manosa).' },
+        { q:'¿Cuál es el enlace glicosídico de la maltosa?', a:'α 1-O-4\' (une dos glucosas).' },
+        { q:'¿Cuál es el enlace glicosídico de la celobiosa?', a:'β 1-O-4\' (une dos glucosas).' },
+        { q:'¿Cuál es el enlace glicosídico de la lactosa?', a:'β 1-O-4\' (une galactosa y glucosa).' },
+        { q:'¿Por qué la sacarosa NO es un azúcar reductor?', a:'Porque el enlace une el C1 anomérico de la glucosa con el C2 anomérico de la fructosa, bloqueando ambos grupos reductores.' },
+        { q:'¿Qué es el "azúcar invertido"?', a:'La mezcla de glucosa y fructosa resultante de la hidrólisis de la sacarosa, que invierte el signo de la rotación óptica a levógiro.' },
+        { q:'¿Cuáles son las dos fracciones del almidón?', a:'Amilosa (lineal, α 1-O-4) y amilopectina (ramificada, α 1-O-4 y α 1-O-6).' },
+        { q:'¿Qué prueba cualitativa identifica al almidón?', a:'La prueba del yodo, que forma un complejo de color azul intenso con la amilosa helicoidal.' },
+        { q:'¿Cuál es el tipo de enlace de la celulosa?', a:'β 1-O-4, lo que le confiere propiedades estructurales y la hace no digerible para los humanos.' },
+        { q:'¿Qué enzima hidroliza la lactosa y su deficiencia causa intolerancia?', a:'La β-galactosidasa, también conocida como lactasa.' }
+    ];
+    let fcIndex=0, fcFlipped=false, fcGood=0, fcBad=0, fcDone=false;
+    function fcUpdateStats(){
+        document.getElementById('fc-good').textContent=fcGood;
+        document.getElementById('fc-bad').textContent=fcBad;
+        document.getElementById('fc-left').textContent=Math.max(0,flashcards.length-fcIndex);
+        const tg=parseInt(localStorage.getItem('fc11TotalGood')||'0',10), tb=parseInt(localStorage.getItem('fc11TotalBad')||'0',10);
+        document.getElementById('fc-hist').textContent=tg+' ✓ / '+tb+' ✗';
+        document.getElementById('fc-bar').style.width=(fcIndex/flashcards.length*100)+'%';
+    }
+    function fcRenderCard(){
+        document.getElementById('fc-card').classList.remove('flipped'); fcFlipped=false;
+        document.getElementById('fc-question').textContent=flashcards[fcIndex].q;
+        document.getElementById('fc-answer').textContent=flashcards[fcIndex].a;
+        document.getElementById('btn-fc-good').disabled=true; document.getElementById('btn-fc-bad').disabled=true;
+        fcUpdateStats();
+    }
+    function flipCard(){
+        if(fcDone) return;
+        const c=document.getElementById('fc-card'); c.classList.toggle('flipped');
+        fcFlipped=c.classList.contains('flipped');
+        document.getElementById('btn-fc-good').disabled=!fcFlipped;
+        document.getElementById('btn-fc-bad').disabled=!fcFlipped;
+    }
+    function gradeCard(ok){
+        if(!fcFlipped||fcDone) return;
+        if(ok){ fcGood++; localStorage.setItem('fc11TotalGood',String(parseInt(localStorage.getItem('fc11TotalGood')||'0',10)+1)); }
+        else { fcBad++; localStorage.setItem('fc11TotalBad',String(parseInt(localStorage.getItem('fc11TotalBad')||'0',10)+1)); }
+        fcIndex++;
+        if(fcIndex<flashcards.length) { fcRenderCard(); } else { fcFinish(); }
+    }
+    function fcFinish(){
+        fcDone=true;
+        document.getElementById('fc-scene').style.display='none';
+        document.getElementById('fc-controls').style.display='none';
+        const pct=Math.round(fcGood/(fcGood+fcBad)*100);
+        const msg=pct>=80?' ¡Excelente! Dominas el capítulo 11.':(pct>=60?'💪 ¡Bien! Repasa las que fallaste.':'📚 Repasa Conceptos, Mapa y Errores Comunes.');
+        const s=document.getElementById('fc-summary');
+        s.innerHTML='<strong>📊 Resumen:</strong> ✅ '+fcGood+' • ❌ '+fcBad+' • Precisión <strong>'+pct+'%</strong><br>'+msg;
+        s.classList.add('show'); fcUpdateStats();
+    }
+    function resetFlashcards(){
+        fcIndex=0; fcGood=0; fcBad=0; fcDone=false;
+        document.getElementById('fc-scene').style.display='block';
+        document.getElementById('fc-controls').style.display='flex';
+        document.getElementById('fc-summary').classList.remove('show');
+        fcRenderCard();
+    }
+    function borrarHistorial(){ localStorage.removeItem('fc11TotalGood'); localStorage.removeItem('fc11TotalBad'); fcUpdateStats(); }
+    
+    // ================= HERRAMIENTAS =================
+    const clasificadorData = [
+        { c:'Glucosa', t:'Aldohexosa', x:'Tiene 6 carbonos y un grupo aldehído en C1.' },
+        { c:'Fructosa', t:'Cetohexosa', x:'Tiene 6 carbonos y un grupo cetona en C2.' },
+        { c:'Ribosa', t:'Aldopentosa', x:'Tiene 5 carbonos y un grupo aldehído. Componente del ARN.' },
+        { c:'Gliceraldehído', t:'Aldotriosa', x:'El monosacárido más pequeño, con 3 carbonos y un aldehído.' },
+        { c:'Sacarosa', t:'Disacárido no reductor', x:'Formado por glucosa y fructosa unidas por sus carbonos anoméricos.' },
+        { c:'Celulosa', t:'Polisacárido estructural', x:'Polímero lineal de glucosas unidas por enlaces β 1-O-4.' }
+    ];
+    function clasificarCarbohidrato(){
+        const d=clasificadorData[parseInt(document.getElementById('clasificador-select').value,10)];
+        const r=document.getElementById('clasificador-resultado');
+        r.innerHTML='<strong>'+d.c+'</strong><br>Clasificación: <span style="color:#e94560;font-weight:bold;">'+d.t+'</span><br>💡 '+d.x;
+        r.classList.add('show');
+    }
+    const reductorData = [
+        { d:'Maltosa', r:'SÍ es reductor y presenta mutarrotación.', x:'Tiene un enlace α 1-O-4, dejando el carbono anomérico de la segunda glucosa libre (hemiacetal).' },
+        { d:'Lactosa', r:'SÍ es reductora y presenta mutarrotación.', x:'Tiene un enlace β 1-O-4, dejando el carbono anomérico de la glucosa libre.' },
+        { d:'Sacarosa', r:'NO es reductora ni presenta mutarrotación.', x:'Enlace α 1-O-β 2. Ambos carbonos anoméricos están unidos (acetal), bloqueando el grupo reductor.' },
+        { d:'Celobiosa', r:'SÍ es reductora y presenta mutarrotación.', x:'Tiene un enlace β 1-O-4, dejando un carbono anomérico libre.' },
+        { d:'Metil-β-D-glucopiranosido (Glicósido)', r:'NO es reductor ni presenta mutarrotación.', x:'Es un acetal. El enlace glicosídico es estable y no se abre en solución acuosa neutra.' }
+    ];
+    function evaluarReductor(){
+        const d=reductorData[parseInt(document.getElementById('reductor-select').value,10)];
+        const r=document.getElementById('reductor-resultado');
+        r.innerHTML='<strong>'+d.d+'</strong><br>Resultado: <span style="color:#e94560;font-weight:bold;">'+d.r+'</span><br>💡 '+d.x;
+        r.classList.add('show');
+    }
+    function calcularIsomeros(){
+        const n=parseInt(document.getElementById('isomeros-input').value,10);
+        if(n<1 || n>10) { alert('Por favor, ingresa un número entre 1 y 10.'); return; }
+        const total=Math.pow(2,n);
+        const r=document.getElementById('isomeros-resultado');
+        r.innerHTML='<strong>Número de carbonos asimétricos (n):</strong> '+n+'<br>Total de isómeros ópticos (2ⁿ): <span style="color:#e94560;font-weight:bold;">'+total+'</span><br>💡 De estos, '+total/2+' pertenecen a la serie D y '+total/2+' a la serie L (enantiómeros).';
+        r.classList.add('show');
+    }
+    
+    // ================= QUIZ (base 30, muestra 10 al azar) =================
+    const quizBank = [
+        { question:'La fórmula general de los carbohidratos es:', options:['CₙH₂ₙ₊₂', 'Cₙ(H₂O)ₘ', 'CₙH₂ₙO', 'CₙH₂ₙ₋₂'], correct:1, explanation:'Los carbohidratos son polihidroxialdehídos o polihidroxicetonas con fórmula general Cₙ(H₂O)ₘ.' },
+        { question:'El monosacárido más pequeño es:', options:['Eritrosa', 'Ribosa', 'Gliceraldehído', 'Dihidroxiacetona'], correct:2, explanation:'El gliceraldehído es una aldotriosa (3 carbonos), el monosacárido más simple.' },
+        { question:'La serie "D" de los azúcares se basa en la configuración del:', options:['L(-)-gliceraldehído', 'D(+)-gliceraldehído', 'D(-)-fructosa', 'L(+)-glucosa'], correct:1, explanation:'La serie D se define por su relación configuracional con el D(+)-gliceraldehído.' },
+        { question:'¿Cuántos isómeros ópticos tiene una aldohexosa como la glucosa (4 carbonos asimétricos)?', options:['8', '12', '16', '32'], correct:2, explanation:'Según la regla de Van\'t Hoff, 2ⁿ = 2⁴ = 16 isómeros ópticos.' },
+        { question:'La manosa y la glucosa son epímeros porque:', options:['Son enantiómeros', 'Difieren en la configuración de un solo carbono (C2)', 'Tienen diferente fórmula molecular', 'Una es aldosa y la otra cetosa'], correct:1, explanation:'Los epímeros son diastereoisómeros que difieren en la configuración de un único carbono asimétrico (C2 en este caso).' },
+        { question:'La galactosa es epímero de la glucosa en el carbono:', options:['C1', 'C2', 'C3', 'C4'], correct:3, explanation:'La galactosa difiere de la glucosa únicamente en la estereoquímica del carbono 4.' },
+        { question:'Los anillos de 6 miembros en los carbohidratos se denominan:', options:['Furanósicos', 'Piranósicos', 'Ciclopentanos', 'Bencénicos'], correct:1, explanation:'Por analogía con el pirano, los anillos de 6 miembros son piranósicos. Los de 5 son furanósicos.' },
+        { question:'En la conformación de silla de la D-glucosa, el anómero más estable es el:', options:['Alfa (OH axial)', 'Beta (OH ecuatorial)', 'Gamma', 'Delta'], correct:1, explanation:'El anómero β tiene todos sus sustituyentes voluminosos (incluido el OH anomérico) en posición ecuatorial, minimizando la repulsión estérica.' },
+        { question:'La mutarrotación es el fenómeno por el cual:', options:['Un azúcar se oxida rápidamente', 'La rotación óptica cambia hasta alcanzar un equilibrio entre anómeros', 'Se forma un enlace glicosídico', 'La cetosa se convierte en aldosa'], correct:1, explanation:'Es el cambio en la rotación óptica debido a la interconversión de los anómeros α y β a través de la forma lineal en solución.' },
+        { question:'El carbono anomérico se identifica porque:', options:['Es el carbono terminal -CH₂OH', 'Es el único unido a dos átomos de oxígeno', 'Tiene un doble enlace', 'Siempre es el C6'], correct:1, explanation:'En la forma cíclica, el carbono anomérico (C1 en aldosas, C2 en cetosas) es el único unido a dos oxígenos (uno del anillo y uno del OH o OR).' },
+        { question:'La formación de un glicósido implica la conversión de un hemiacetal en:', options:['Una cetona', 'Un acetal', 'Un alcohol primario', 'Un ácido carboxílico'], correct:1, explanation:'La reacción de un hemiacetal con un alcohol en medio ácido forma un acetal, llamado glicósido en carbohidratos.' },
+        { question:'Los glicósidos, a diferencia de los monosacáridos libres:', options:['Tienen mayor mutarrotación', 'NO presentan mutarrotación ni poder reductor', 'Son más inestables', 'Siempre son cetosas'], correct:1, explanation:'Al ser acetales, el enlace es estable y no se abre para formar la cadena lineal con el grupo aldehído libre.' },
+        { question:'¿Por qué las cetosas dan positivo en la prueba de Fehling o Tollens?', options:['Porque son aldosas', 'Porque en medio básico forman un intermedio enodiol que se isomeriza a aldosa', 'Porque el reactivo es ácido', 'Porque se oxidan a ácidos aldáricos'], correct:1, explanation:'En medio básico, las cetosas sufren tautomería cetoenólica, formando un enodiol que se convierte en aldosa, la cual sí es oxidada.' },
+        { question:'El agua de bromo es útil para identificar aldosas porque:', options:['Oxida tanto aldosas como cetosas', 'Es un medio ácido que oxida solo el aldehído, sin isomerizar cetosas', 'Reduce el grupo carbonilo', 'Forma osazonas'], correct:1, explanation:'Al ser ácido, no provoca la tautomería de las cetosas, por lo que solo reacciona con el grupo aldehído de las aldosas.' },
+        { question:'La reducción de una aldosa con NaBH₄ produce:', options:['Un ácido aldónico', 'Un alditol', 'Una osazona', 'Un ácido aldárico'], correct:1, explanation:'La reducción del grupo aldehído a alcohol primario convierte la aldosa en un polialcohol o alditol (ej. glucosa → glucitol).' },
+        { question:'En la formación de osazonas con fenilhidrazina, ¿qué azúcares producen la misma osazona?', options:['Glucosa y galactosa', 'Glucosa, fructosa y manosa', 'Ribosa y desoxirribosa', 'Maltosa y lactosa'], correct:1, explanation:'La reacción destruye la estereoquímica de C1 y C2, por lo que azúcares que solo difieren en C1 y C2 (como glucosa, manosa y fructosa) dan la misma osazona.' },
+        { question:'El enlace glicosídico de la maltosa es:', options:['β 1-O-4\'', 'α 1-O-4\'', 'α 1-O-β 2\'', 'α 1-O-6\''], correct:1, explanation:'La maltosa está formada por dos glucosas unidas por un enlace α 1-O-4\'.' },
+        { question:'El disacárido presente en la leche es:', options:['Maltosa', 'Sacarosa', 'Lactosa', 'Celobiosa'], correct:2, explanation:'La lactosa (galactosa-β1,4-glucosa) es el azúcar principal de la leche.' },
+        { question:'¿Cuál de los siguientes disacáridos NO es reductor?', options:['Maltosa', 'Lactosa', 'Celobiosa', 'Sacarosa'], correct:3, explanation:'La sacarosa une el C1 de la glucosa con el C2 de la fructosa, bloqueando ambos carbonos anoméricos.' },
+        { question:'La hidrólisis de la sacarosa produce:', options:['Dos moléculas de glucosa', 'Glucosa y galactosa', 'Glucosa y fructosa', 'Dos moléculas de galactosa'], correct:2, explanation:'La sacarosa se hidroliza en una molécula de α-D-glucosa y una de β-D-fructosa.' },
+        { question:'El fenómeno de "inversión de la sacarosa" se debe a que:', options:['La fructosa es fuertemente dextrógira', 'La fructosa es fuertemente levógira, invirtiendo el signo de la rotación de la mezcla', 'La glucosa se convierte en galactosa', 'Se forma un enlace β'], correct:1, explanation:'La sacarosa es dextrógira (+66.4°), pero al hidrolizarse, la fuerte rotación levógira de la fructosa (-92.4°) domina, haciendo la mezcla levógira (-39.7°).' },
+        { question:'La amilosa, componente del almidón, tiene enlaces:', options:['β 1-O-4', 'α 1-O-4', 'α 1-O-6', 'β 1-O-6'], correct:1, explanation:'La amilosa es una cadena lineal de glucosas unidas por enlaces α 1-O-4.' },
+        { question:'Las ramificaciones en la amilopectina se deben a enlaces:', options:['α 1-O-4', 'β 1-O-4', 'α 1-O-6', 'β 1-O-6'], correct:2, explanation:'La amilopectina tiene cadenas lineales α 1-O-4 con ramificaciones α 1-O-6 cada 25-30 unidades.' },
+        { question:'El complejo de color azul con el yodo (I₃⁻) es característico de:', options:['Celulosa', 'Glucógeno', 'Amilosa', 'Sacarosa'], correct:2, explanation:'La estructura helicoidal de la amilosa atrapa los iones triyoduro, formando un complejo de transferencia de carga azul intenso.' },
+        { question:'La celulosa está formada por unidades de glucosa unidas por enlaces:', options:['α 1-O-4', 'β 1-O-4', 'α 1-O-6', 'β 1-O-6'], correct:1, explanation:'La celulosa es un polímero lineal de glucosas con enlaces β 1-O-4, lo que le da rigidez estructural.' },
+        { question:'Los humanos no podemos digerir la celulosa porque:', options:['Es demasiado grande', 'Carecemos de enzimas (celulasas) para hidrolizar enlaces β 1-O-4', 'Es insoluble en agua', 'Contiene fructosa'], correct:1, explanation:'Nuestras enzimas digestivas (como la amilasa) solo hidrolizan enlaces α. No producimos celulasas para romper enlaces β.' },
+        { question:'La intolerancia a la lactosa se debe a la deficiencia de:', options:['Amilasa', 'Sacarasa', 'β-galactosidasa (lactasa)', 'Maltasa'], correct:2, explanation:'La deficiencia de lactasa impide la hidrólisis de la lactosa en el intestino, causando fermentación bacteriana y síntomas gastrointestinales.' },
+        { question:'El carbono anomérico de la fructosa en su forma cíclica es el:', options:['C1', 'C2', 'C5', 'C6'], correct:1, explanation:'Al ser una cetosa, el grupo carbonilo está en C2, por lo que C2 se convierte en el carbono anomérico al formar el hemiacetal.' },
+        { question:'¿Qué porcentaje aproximado de anómero β existe en el equilibrio de la D-glucosa en agua?', options:['10%', '36%', '50%', '64%'], correct:3, explanation:'El anómero β es más estable (OH ecuatorial) y predomina en el equilibrio con aproximadamente un 64%.' },
+        { question:'El "efecto anomérico" favorece la forma axial (α) cuando el aglicón es muy electronegativo debido a:', options:['Repulsión estérica', 'Repulsión dipolar entre el aglicón y el oxígeno del anillo', 'Puentes de hidrógeno', 'Resonancia'], correct:1, explanation:'El efecto anomérico es una estabilización electrónica (interacción de orbitales) que puede favorecer la posición axial a pesar de la repulsión estérica, especialmente en solventes no polares.' }
+    ];
+    let quizSet=[], qIdx=0, qScore=0, qAnswered=false, cycleDone=false, quizLastSet=[];
+    
+    function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); const t=a[i]; a[i]=a[j]; a[j]=t; } return a; }
+    function overlapCount(sel, old){ const s=new Set(old.map(q=>q.question)); return sel.filter(q=>s.has(q.question)).length; }
+    
+    function startNewCycle(){
+        let sel, tries=0;
+        do { sel=shuffle(quizBank.slice()).slice(0,10); tries++; }
+        while (quizLastSet.length && overlapCount(sel, quizLastSet) > 4 && tries < 30);
+        quizLastSet=sel;
+        quizSet=sel;
+        qIdx=0; qScore=0; qAnswered=false; cycleDone=false;
+        document.getElementById('quiz-result').style.display='none';
+        document.getElementById('quiz-result').classList.remove('show');
+        renderQuestion(); updateQuizHistory();
+    }
+    function renderQuestion(){
+        const q=quizSet[qIdx];
+        document.getElementById('q-progress-text').textContent='Pregunta '+(qIdx+1)+' de 10 • Aciertos: '+qScore;
+        document.getElementById('q-bar').style.width=(qIdx/10*100)+'%';
+        let html='<div class="quiz-container"><div class="quiz-question">'+(qIdx+1)+'. '+q.question+'</div><div class="quiz-options">';
+        q.options.forEach(function(o,i){ html+='<button class="quiz-option" onclick="checkQuiz('+i+', this)">'+o+'</button>'; });
+        html+='</div><div id="quiz-feedback" style="display:none;margin-top:1rem;padding:1rem;border-radius:8px;color:#2c3e50;"></div>';
+        html+='<div style="text-align:center;margin-top:1.2rem;"><button id="btn-next" class="calc-button" style="display:none;" onclick="nextQuestion()">'+(qIdx===9?'📊 Ver resultados':'➡️ Siguiente pregunta')+'</button></div></div>';
+        document.getElementById('quiz-container').innerHTML=html;
+        qAnswered=false;
+    }
+    function checkQuiz(i,btn){
+        if(qAnswered) return; qAnswered=true;
+        const q=quizSet[qIdx];
+        const opts=btn.parentElement.querySelectorAll('.quiz-option');
+        opts.forEach(function(o){ o.disabled=true; });
+        const fb=document.getElementById('quiz-feedback');
+        if(i===q.correct){ btn.classList.add('correct'); qScore++;
+            fb.innerHTML='<span style="color:#2e7d32;font-weight:bold;">✅ ¡Correcto!</span><br>'+q.explanation;
+            fb.style.background='#e8f5e9';
+        } else { btn.classList.add('incorrect'); opts[q.correct].classList.add('correct');
+            fb.innerHTML='<span style="color:#c62828;font-weight:bold;">❌ Incorrecto.</span><br>'+q.explanation;
+            fb.style.background='#ffebee';
+        }
+        fb.style.display='block';
+        document.getElementById('q-progress-text').textContent='Pregunta '+(qIdx+1)+' de 10 • Aciertos: '+qScore;
+        document.getElementById('btn-next').style.display='inline-block';
+    }
+    function nextQuestion(){ if(qIdx<9){ qIdx++; renderQuestion(); } else { finishCycle(); } }
+    function finishCycle(){
+        cycleDone=true;
+        document.getElementById('q-bar').style.width='100%';
+        document.getElementById('quiz-container').innerHTML='';
+        const pct=Math.round(qScore*10);
+        let cycles=parseInt(localStorage.getItem('q11_cycles')||'0',10)+1;
+        const best=Math.max(parseInt(localStorage.getItem('q11_best')||'0',10),pct);
+        const totC=parseInt(localStorage.getItem('q11_totC')||'0',10)+qScore;
+        const totQ=parseInt(localStorage.getItem('q11_totQ')||'0',10)+10;
+        localStorage.setItem('q11_cycles',String(cycles)); localStorage.setItem('q11_best',String(best));
+        localStorage.setItem('q11_totC',String(totC)); localStorage.setItem('q11_totQ',String(totQ));
+        const msg=pct>=80?'🏆 ¡Excelente! Dominas el Capítulo 11.':(pct>=60?'💪 ¡Bien! Repasa los temas fallados en Conceptos y Errores Comunes.':'📚 Necesitas repasar: usa Mapa, Flashcards y Aplicaciones antes del próximo ciclo.');
+        const r=document.getElementById('quiz-result');
+        r.innerHTML='<strong>📊 Resultados del ciclo:</strong> '+qScore+'/10 correctas • <strong style="color:#e94560;">'+pct+'%</strong><br>'+msg+'<br><br>🔄 Pulsa "Reiniciar Quiz" o vuelve a entrar al Quiz para un <strong>nuevo ciclo con preguntas aleatorias</strong>.';
+        r.style.display='block'; r.classList.add('show');
+        document.getElementById('q-progress-text').textContent='Ciclo completado • Aciertos: '+qScore+'/10';
+        updateQuizHistory();
+    }
+    function updateQuizHistory(){
+        const cycles=parseInt(localStorage.getItem('q11_cycles')||'0',10);
+        const best=parseInt(localStorage.getItem('q11_best')||'0',10);
+        const totC=parseInt(localStorage.getItem('q11_totC')||'0',10);
+        const totQ=parseInt(localStorage.getItem('q11_totQ')||'0',10);
+        document.getElementById('q-history').innerHTML='📈 Ciclos: <strong>'+cycles+'</strong> | Mejor: <strong>'+best+'%</strong> | Promedio histórico: <strong>'+(totQ?Math.round(totC/totQ*100):0)+'%</strong>';
+    }
+    
+    // ================= INICIALIZACIÓN =================
+    document.addEventListener('DOMContentLoaded', function(){
+        startNewCycle();
+        fcRenderCard();
+    });
+
+    // ============================================================
+    //  AMPLIAR IMÁGENES AL HACER CLIC
+    // ============================================================
+    document.addEventListener('DOMContentLoaded', function() {
+        const imagenes = document.querySelectorAll('.img-container img, .molecule-img');
+        imagenes.forEach(img => {
+            img.style.cursor = 'pointer';
+            img.addEventListener('click', function(e) {
+                window.open(this.src, '_blank');
+            });
+        });
+    });
+</script>
+</body>
+</html>
